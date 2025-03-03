@@ -1,0 +1,1 @@
+g++ main.cpp number_list_loader.cpp -Wall -o algo
