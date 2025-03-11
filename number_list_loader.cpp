@@ -36,7 +36,12 @@ number_test_list* get_nubmers(){
             if (!(iss >> k)) { continue; } // error
             list_m.k = k;
         }
-
+        if(std::getline(text_to_process, line)){
+            std::istringstream iss(line);
+            int expected_result;
+            if (!(iss >> expected_result)) { continue; } // error
+            list_m.expected_result = expected_result;
+        }
         vector<double> numbers_to_process;
 
         // From https://stackoverflow.com/questions/7868936/read-file-line-by-line-using-ifstream-in-c
@@ -46,6 +51,9 @@ number_test_list* get_nubmers(){
             if (!(iss >> a)) { break; } // error
             numbers_to_process.push_back(a);
         }
+
+
+
 
         if(numbers_to_process.size() == 0) continue; //End if empty / no points to process
         if((size_t) list_m.k > numbers_to_process.size()) continue; //End if k is greater than n (impossible)
@@ -57,6 +65,7 @@ number_test_list* get_nubmers(){
         }
         list_m.size = points_array_size;
         list_of_lists.push_back(list_m);
+
     }
 
     number_test_list* to_return = new number_test_list;

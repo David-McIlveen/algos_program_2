@@ -7,6 +7,7 @@ struct number_list{
     int size;
     std::string test_name;
     int k;
+    int expected_result;
     double* nubmers;
 };
 
