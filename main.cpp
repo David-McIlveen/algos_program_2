@@ -17,9 +17,11 @@ int main(){
         number_list current_test = tests->tests[i];
         cout << "Test #" << i << " (" << current_test.test_name << ") where k = " << current_test.k << endl;
         cout << endl << "    ";
-        for (int i = 0; i < current_test.size; i++){
-            cout << current_test.nubmers[i] << ", ";
-        }        
+        if (current_test.size < 100){
+            for (int i = 0; i < current_test.size; i++){
+                cout << current_test.nubmers[i] << ", ";
+            }    
+        }    
         try{
             double kth_smallest_value = algorithm(current_test.nubmers, current_test.size, current_test.k);
             cout << endl << "The Kth smallest value is " << kth_smallest_value << "." << endl;    
@@ -29,6 +31,7 @@ int main(){
                 cout << "The result is incorrect! Expected " << current_test.expected_result << "." << endl;
             }
         } catch (string e){
+            cout << "An error occured: " << e << endl;
             cout << e << endl;
         }
         cout << endl << endl;

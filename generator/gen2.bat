@@ -1,0 +1,1 @@
+g++ gen2.cpp -o gen2
