@@ -38,7 +38,7 @@ number_test_list* get_nubmers(){
         }
         if(std::getline(text_to_process, line)){
             std::istringstream iss(line);
-            int expected_result;
+            double expected_result;
             if (!(iss >> expected_result)) { continue; } // error
             list_m.expected_result = expected_result;
         }

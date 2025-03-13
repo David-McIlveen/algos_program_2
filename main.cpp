@@ -2,6 +2,8 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <chrono>
+#include <fstream>
 using namespace std;
 
 double algorithm(double* array, int size, int k);
@@ -11,18 +13,22 @@ double find_smallest_value(double* array, int size);
 double medianOfMedians(double* array, int size);
 
 int main(){
+    try {
     number_test_list* tests = get_nubmers();
     cout << "There are " << tests->num_of_tests << " tests." << endl;
+    ofstream benchmark_data;
+    benchmark_data.open("time_data.csv");
     for(int i = 0; i < tests->num_of_tests; ++i){
         number_list current_test = tests->tests[i];
         cout << "Test #" << i << " (" << current_test.test_name << ") where k = " << current_test.k << endl;
-        cout << endl << "    ";
-        if (current_test.size < 100){
-            for (int i = 0; i < current_test.size; i++){
-                cout << current_test.nubmers[i] << ", ";
-            }    
-        }    
+        // cout << endl << "    ";
+        // if (current_test.size < 100){
+        //     for (int i = 0; i < current_test.size; i++){
+        //         cout << current_test.nubmers[i] << ", ";
+        //     }    
+        // }    
         try{
+            auto start = std::chrono::high_resolution_clock::now();
             double kth_smallest_value = algorithm(current_test.nubmers, current_test.size, current_test.k);
             cout << endl << "The Kth smallest value is " << kth_smallest_value << "." << endl;    
             if (kth_smallest_value == current_test.expected_result){
@@ -30,11 +36,18 @@ int main(){
             } else {
                 cout << "The result is incorrect! Expected " << current_test.expected_result << "." << endl;
             }
+            auto end = std::chrono::high_resolution_clock::now();
+            benchmark_data << current_test.test_name << "," << std::chrono::duration_cast<std::chrono::nanoseconds>(end-start).count() << endl;
         } catch (string e){
             cout << "An error occured: " << e << endl;
             cout << e << endl;
         }
         cout << endl << endl;
+    }
+    benchmark_data.close();
+    } catch (string e){
+        cout << "An error occured: " << e << endl;
+        cout << e << endl; 
     }
 }
 

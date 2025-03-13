@@ -8,8 +8,8 @@
 using namespace std;
 
 const string DEFAULT_FILE_NAME = "test_case";
-const double MIN_VALUE = -1000000000; // Minimum value in the array
-const double MAX_VALUE = 1000000000;  // Maximum value in the array
+const double MIN_VALUE = -10000; // Minimum value in the array
+const double MAX_VALUE = 10000;  // Maximum value in the array
 
 // Function to generate a random double in a given range
 double get_random_double(double lower_bound, double upper_bound);
@@ -80,6 +80,7 @@ int main() {
     }
 
     // Write k and the expected k-th smallest value to the file
+    output_file << file_name << endl;
     output_file << k << endl;
     output_file << kth_value << endl;
 
